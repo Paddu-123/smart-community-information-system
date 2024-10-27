@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Announcements</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 1.5em 0;
+            text-align: center;
+        }
+        nav {
+            margin: 1em 0;
+        }
+        nav a {
+            margin: 0 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 2em;
+            margin: 1em auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #28a745;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        form {
+            margin-top: 2em;
+            text-align: left;
+        }
+        input, textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Community Announcements</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emergency.html">Emergency Numbers</a>
+        </nav>
+    </header>
+
+    <section id="announcements">
+        <h2>Latest Announcements</h2>
+
+        <!-- Add filtering section here -->
+        <h3>Filter Announcements by Date</h3>
+        <input type="date" id="announcementFilterDate"> <!-- Date input for filtering -->
+        <button id="filterAnnouncementsBtn">Filter</button> <!-- Button to trigger filtering -->
+        
+        <ul id="announcementList">
+            <li>New Health Clinic Opening: January 15, 2024</li>
+            <li>Village Clean-Up Day: February 10, 2024</li>
+            <li>Annual Village Festival: March 20, 2024</li>
+        </ul>
+
+        <h3>Add New Announcement</h3>
+        <form id="announcementForm">
+            <input type="text" id="announcementTitle" placeholder="Announcement Title" required>
+            <textarea id="announcementDetails" rows="4" placeholder="Details" required></textarea>
+            <input type="date" id="announcementDate" required> <!-- Date field for new announcements -->
+            <button type="submit">Add Announcement</button>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('announcementForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const announcementTitle = document.getElementById('announcementTitle').value;
+            const announcementDetails = document.getElementById('announcementDetails').value;
+            const announcementDate = document.getElementById('announcementDate').value;
+
+            const ul = document.getElementById('announcementList');
+            const li = document.createElement('li');
+            li.textContent = `${announcementTitle} - ${announcementDetails} (Date: ${announcementDate})`;
+            ul.appendChild(li);
+
+            // Clear the input fields
+            document.getElementById('announcementTitle').value = '';
+            document.getElementById('announcementDetails').value = '';
+            document.getElementById('announcementDate').value = '';
+        });
+
+        document.getElementById('filterAnnouncementsBtn').addEventListener('click', function() {
+            const filterDate = document.getElementById('announcementFilterDate').value;
+            const listItems = document.querySelectorAll('#announcementList li');
+
+            listItems.forEach(li => {
+                if (li.textContent.includes(`(Date: ${filterDate})`)) {
+                    li.style.display = '';
+                } else {
+                    li.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
